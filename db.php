@@ -7,9 +7,9 @@ class DB {
 	private $db = "anonyme";
 	private $password = "";
 	private $user ="root";
-
-
-	private $stmt;
+	private $dbh;
+    private $error;
+    private $stmt;
 
 	function __construct()
 	{
@@ -17,7 +17,13 @@ class DB {
 		try {
         
          $dsn = "mysql:host=". $this->host.";dbname=".$this->db;
-         $dbh = new PDO($dsn, $this->user, $this->password);
+         $options = array(
+                 PDO::ATTR_PERSISTENT => true, 
+                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                 );
+         $this->dbh = new PDO($dsn, $this->user, $this->password,$options);
+
+         
 
 			
 		} catch (PDOException $e) {
@@ -37,10 +43,6 @@ class DB {
     return $this->stmt->execute();
     }
 
-    public function resultset(){
-    $this->execute();
-    return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
 
     public function resultset(){
@@ -51,6 +53,9 @@ class DB {
    public function lastInsertId(){
     return $this->dbh->lastInsertId();
    }
+   public function rowCount(){
+    return $this->stmt->rowCount();
+}
 
    public function bind($param, $value, $type = null){
     if (is_null($type)) {
@@ -69,13 +74,13 @@ class DB {
         }
     }
     $this->stmt->bindValue($param, $value, $type);
-   }
+  }
 }
 
 
 //*********** Utilisation *******//
 
-/**  $database = new Database();
+/**  $database = new Db();
 /**  $database->bind(':fname', 'John');
      $database->bind(':lname', 'Smith');
      $database->bind(':age', '24');
