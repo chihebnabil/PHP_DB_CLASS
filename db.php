@@ -81,14 +81,8 @@ class DB {
 //*********** Utilisation *******//
 
 /**  $database = new Db();
-/**  $database->bind(':fname', 'John');
-     $database->bind(':lname', 'Smith');
-     $database->bind(':age', '24');
-     $database->bind(':gender', 'male');
 
 
-/**  $database->execute();
-/** echo $database->lastInsertId();
 /**
 /** $database->query('SELECT FName, LName, Age, Gender FROM mytable WHERE LName = :lname');
 /** $database->bind(':lname', 'Smith');
