@@ -81,24 +81,5 @@ class DB {
         $this->stmt->bindValue($param, $value, $type);
     }
 }
-$database = new Db();
-
-//*********** Use *******//
-
-/**  $database = new Db();
-
-
-/**
-/** $database->query('SELECT FName, LName, Age, Gender FROM mytable WHERE LName = :lname');
-/** $database->bind(':lname', 'Smith');
-/** $rows = $database->resultset();
-/**
-/** echo $database->rowCount();
-
-
-
-
-
-//*******     fin       *************///
 
 ?>
